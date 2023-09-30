@@ -2,5 +2,6 @@ namespace ChessApi.Models;
 
 public class Game
 {
-    public long id { get; set; }
+    public Guid id { get; set; }
+    public string? pgn { get; set; }
 }

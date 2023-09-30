@@ -20,20 +20,9 @@ namespace chess_api.Controllers
             _context = context;
         }
 
-        // GET: api/Game
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Game>>> GetGames()
-        {
-            if (_context.Games == null)
-            {
-                return NotFound();
-            }
-            return await _context.Games.ToListAsync();
-        }
-
         // GET: api/Game/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Game>> GetGame(long id)
+        public async Task<ActionResult<Game>> GetGame(Guid id)
         {
             if (_context.Games == null)
             {
@@ -52,7 +41,7 @@ namespace chess_api.Controllers
         // PUT: api/Game/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutGame(long id, Game game)
+        public async Task<IActionResult> PutGame(Guid id, Game game)
         {
             if (id != game.id)
             {
@@ -95,9 +84,28 @@ namespace chess_api.Controllers
             return CreatedAtAction("GetGame", new { id = game.id }, game);
         }
 
+        // POST: api/Game/{id}/move
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPost("{id}/move")]
+        public async Task<ActionResult<object>> PostGameMove(Guid id, object move)
+        {
+            if (_context.Games == null)
+            {
+                return NotFound();
+            }
+            var game = await _context.Games.FindAsync(id);
+
+            if (game == null)
+            {
+                return NotFound();
+            }
+
+            return move;
+        }
+
         // DELETE: api/Game/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteGame(long id)
+        public async Task<IActionResult> DeleteGame(Guid id)
         {
             if (_context.Games == null)
             {
@@ -115,7 +123,7 @@ namespace chess_api.Controllers
             return NoContent();
         }
 
-        private bool GameExists(long id)
+        private bool GameExists(Guid id)
         {
             return (_context.Games?.Any(e => e.id == id)).GetValueOrDefault();
         }
