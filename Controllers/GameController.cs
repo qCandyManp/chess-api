@@ -43,7 +43,7 @@ namespace chess_api.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutGame(Guid id, Game game)
         {
-            if (id != game.id)
+            if (id != game.Id)
             {
                 return BadRequest();
             }
@@ -81,7 +81,7 @@ namespace chess_api.Controllers
             _context.Games.Add(game);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetGame", new { id = game.id }, game);
+            return CreatedAtAction("GetGame", new { id = game.Id }, game);
         }
 
         // DELETE: api/Game/5
@@ -106,7 +106,7 @@ namespace chess_api.Controllers
 
         private bool GameExists(Guid id)
         {
-            return (_context.Games?.Any(e => e.id == id)).GetValueOrDefault();
+            return (_context.Games?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
