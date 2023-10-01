@@ -84,25 +84,6 @@ namespace chess_api.Controllers
             return CreatedAtAction("GetGame", new { id = game.id }, game);
         }
 
-        // POST: api/Game/{id}/move
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost("{id}/move")]
-        public async Task<ActionResult<object>> PostGameMove(Guid id, object move)
-        {
-            if (_context.Games == null)
-            {
-                return NotFound();
-            }
-            var game = await _context.Games.FindAsync(id);
-
-            if (game == null)
-            {
-                return NotFound();
-            }
-
-            return move;
-        }
-
         // DELETE: api/Game/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteGame(Guid id)
