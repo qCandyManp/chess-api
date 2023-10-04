@@ -2,7 +2,7 @@ namespace ChessApi.Services.Helpers;
 
 class GameState
 {
-    public Dictionary<string, Piece> Field;
+    public Dictionary<string, Piece?> Field;
     public char MoveRight;
     public string CastlingRights;
     public string EnPassant;
@@ -10,7 +10,7 @@ class GameState
     public int Moves;
 
     public GameState(
-        Dictionary<string, Piece> field,
+        Dictionary<string, Piece?> field,
         char moveRight,
         string castlingRights,
         string enPassant,
