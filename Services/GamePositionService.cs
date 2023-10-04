@@ -15,23 +15,65 @@ class GamePositionService
     {
         string[] fenStringMap = position.Split(' ');
 
-        Dictionary<string, Piece> field = new Dictionary<string, Piece>();
+        Dictionary<string, Piece?> field = new Dictionary<string, Piece?>();
         string[] fenFieldRowStrings = fenStringMap[0].Split('/');
-        for (int rowNumber = 1; rowNumber <= fenFieldRowStrings.Length; rowNumber++)
+        for (int rowNumber = fenFieldRowStrings.Length; rowNumber > 0; rowNumber--)
         {
             string? row = fenFieldRowStrings[rowNumber];
+            int i = 1;
             foreach (char item in row)
             {
+                string coordinate = $"{fieldColumnMap[i]}{rowNumber}";
                 if (Char.IsNumber(item))
                 {
-                    for (int i = 1; i <= (int) item; i++)
+                    for (int j = 0; j < (int) item; j++)
                     {
-                        //TODO: Implement coordinate-name generation
+                        field.Add(coordinate, null);
+                        i++;
                     }
                 }
                 else
                 {
-                    //TODO: Implement mapping for Piece-generation
+                    switch (item)
+                    {
+                        case 'R':
+                            field.Add(coordinate, new Rook('w',coordinate));
+                            break;
+                        case 'N':
+                            field.Add(coordinate, new Knight('w',coordinate));
+                            break;
+                        case 'B':
+                            field.Add(coordinate, new Bishop('w',coordinate));
+                            break;
+                        case 'Q':
+                            field.Add(coordinate, new Queen('w',coordinate));
+                            break;
+                        case 'K':
+                            field.Add(coordinate, new King('w',coordinate));
+                            break;
+                        case 'P':
+                            field.Add(coordinate, new Pawn('w',coordinate));
+                            break;
+                        case 'r':
+                            field.Add(coordinate, new Rook('b',coordinate));
+                            break;
+                        case 'n':
+                            field.Add(coordinate, new Knight('b',coordinate));
+                            break;
+                        case 'b':
+                            field.Add(coordinate, new Bishop('b',coordinate));
+                            break;
+                        case 'q':
+                            field.Add(coordinate, new Queen('b',coordinate));
+                            break;
+                        case 'k':
+                            field.Add(coordinate, new King('b',coordinate));
+                            break;
+                        case 'p':
+                            field.Add(coordinate, new Pawn('b',coordinate));
+                            break;
+                    }
+                    i++;
                 }
             }
         }
