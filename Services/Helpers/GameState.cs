@@ -1,11 +1,13 @@
-namespace ChessApi.Services.Helpers;
+using ChessApi.Services.Pieces;
 
-class GameState
+namespace ChessApi.Services;
+
+public class GameState
 {
-    public Dictionary<string, Piece> Field;
+    public List<IPiece> Pieces { get; set; }
 
-    public GameState(string position)
+    public GameState(IPiece[] pieces)
     {
-        Field = new Dictionary<string, Piece>();
+        Pieces = new List<IPiece>(pieces);
     }
 }
